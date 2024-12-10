@@ -21,7 +21,7 @@ candidate_votes = {}  # Dictionary to track votes for each candidate
 # Winning Candidate and Winning Count Tracker
 winning_candidate = ""
 winning_count = 0
-winning_percentage = 0.0
+
 # Open the CSV file and process it
 with open(file_to_load) as election_data:
     reader = csv.reader(election_data)
@@ -36,7 +36,7 @@ with open(file_to_load) as election_data:
         print(". ", end="")
 
         # Increment the total vote count for each row
-        total_votes += 1
+        total_votes = total_votes + 1
 
         # Get the candidate's name from the row
         candidate_name =row[2]
@@ -47,13 +47,13 @@ with open(file_to_load) as election_data:
             candidate_votes[candidate_name]=0
 
         # Add a vote to the candidate's count
-        candidate_votes[candidate_name] += 1
+        candidate_votes[candidate_name] = candidate_votes[candidate_name] + 1
 
 # Open a text file to save the output
 with open(file_to_output, "w") as txt_file:
 
     # Print the total vote count (to terminal)
-    election_results= (f"Election Results\n"f"----------------------------\n"f"Total Votes:{total_votes}\n"f"----------------------------\n")
+    election_results = (f"Election Results\n"f"----------------------------\n"f"Total Votes:{total_votes}\n"f"----------------------------\n")
     print(election_results, end="")
     # Write the total vote count to the text file
     txt_file.write(election_results)
@@ -67,13 +67,13 @@ with open(file_to_output, "w") as txt_file:
         vote_percentage=(votes/total_votes)*100
         # Update the winning candidate if this one has more votes
 
-        if votes>winning_count or (votes==winning_count and vote_percentage>winning_percentage):
+        if votes>winning_count or votes==winning_count:
             winning_candidate=candidate
             winning_count=votes
-            winning_percentage=vote_percentage
+            
         # Print and save each candidate's vote count and percentage
 
-        candidate_results=f"{candidate}: {vote_percentage:.3f}% ({votes})  \n "
+        candidate_results=f" {candidate} : {vote_percentage:.3f}% ({votes})  \n "
         print(candidate_results, end="")
         txt_file.write(candidate_results)
     # Generate and print the winning candidate summary
