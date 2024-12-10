@@ -13,10 +13,10 @@ file_to_output = os.path.join("analysis", "budget_analysis.txt")  # Output file 
 total_months = 0
 total_net = 0
 # Add more variables to track other necessary financial data
-month_of_change = []  # List to track month-over-month changes
-net_change_list = []  # List to store changes in "Profit/Losses" between months
-greatest_increase = ["", 0]  # Store month and value of greatest profit increase
-greatest_decrease = ["", 9999999999999999999]  # Store month and value of greatest loss decrease
+month_of_change = []  
+net_change_list = []  
+greatest_increase = ["", 0]  
+greatest_decrease = ["", 9999999999999999999]  
 # Open and read the csv
 with open(file_to_load) as financial_data:
     reader = csv.reader(financial_data)
@@ -28,9 +28,9 @@ with open(file_to_load) as financial_data:
     first_row = next(reader)
 
     # Track the total and net change
-    total_months += 1
-    total_net += int(first_row[1])  # Add the first month's profit/loss
-    prev_net = int(first_row[1])  # Store the first month's profit/loss for comparison
+    total_months = total_months + 1
+    total_net += int(first_row[1])  
+    prev_net = int(first_row[1])  
     
 
 
@@ -38,14 +38,14 @@ with open(file_to_load) as financial_data:
     for row in reader:
 
         # Track the total
-        total_months += 1  # Increment the total month count
-        total_net += int(row[1])  # Add the current month's profit/loss to the total
+        total_months = total_months + 1 
+        total_net += int(row[1])  
 
         # Track the net change
-        net_change = int(row[1]) - prev_net  # Calculate month-over-month change
-        prev_net = int(row[1])  # Update previous month's profit/loss for the next iteration
-        net_change_list += [net_change]  # Add this month's change to the list
-        month_of_change += [row[0]]  # Add the month to the change list
+        net_change = int(row[1]) - prev_net  
+        prev_net = int(row[1])  
+        net_change_list += [net_change]  
+        month_of_change += [row[0]]  
         # Calculate the greatest increase in profits (month and amount)
 
         if net_change > greatest_increase[1]:
